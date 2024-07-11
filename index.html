@@ -121,6 +121,7 @@
     function startValidation() {
       const keyInput = document.querySelector('.key-input').value;
       const statusMessage = document.querySelector('.status-message');
+      const accessBox = document.querySelector('.access-box');
 
       if (keys.includes(keyInput)) {
         simulateProcess(statusMessage, 'Checking the key from MEX servers...', 3000)
@@ -129,7 +130,7 @@
           .then(() => simulateProcess(statusMessage, 'Just a few steps...', 3000))
           .then(() => {
             statusMessage.classList.add('hidden');
-            document.querySelector('.access-box').classList.remove('hidden');
+            accessBox.classList.remove('hidden');
           });
       } else {
         alert('Invalid key. Please try again.');

@@ -15,6 +15,7 @@
       align-items: center;
       overflow: hidden;
       transition: background 0.3s ease;
+      cursor: default;
     }
 
     .container {
@@ -25,6 +26,8 @@
       box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
       padding: 50px;
       transition: all 0.3s ease;
+      width: 90%;
+      max-width: 400px;
     }
 
     .container:hover {
@@ -44,7 +47,7 @@
       transition: color 0.3s ease;
     }
 
-    .btn, .key-input, .key-list {
+    .btn, .key-input {
       background-color: #2980b9;
       color: white;
       border: none;
@@ -55,7 +58,7 @@
       transition: background-color 0.3s ease, transform 0.3s ease;
     }
 
-    .btn:hover, .key-input:hover, .key-list:hover {
+    .btn:hover, .key-input:hover {
       background-color: #1abc9c;
       transform: scale(1.05);
     }
@@ -69,55 +72,6 @@
       background-color: #34495e;
       color: white;
     }
-
-    .key-list {
-      margin-top: 20px;
-      padding: 10px;
-      background-color: rgba(41, 128, 185, 0.1);
-      border-radius: 5px;
-      max-height: 200px;
-      overflow-y: auto;
-    }
-
-    .key-list p {
-      margin: 5px 0;
-      padding: 10px;
-      background-color: #34495e;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .key-list p:hover {
-      background-color: #2980b9;
-      color: white;
-    }
-
-    @keyframes cursorBlur {
-      0% {
-        opacity: 1;
-        transform: translate(0, 0);
-      }
-      100% {
-        opacity: 0;
-        transform: translate(50px, 50px);
-      }
-    }
-
-    body::after {
-      content: '';
-      position: absolute;
-      width: 50px;
-      height: 50px;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 50%;
-      pointer-events: none;
-      animation: cursorBlur 0.5s infinite;
-    }
-
-    body {
-      cursor: none;
-    }
   </style>
 </head>
 <body>
@@ -126,21 +80,6 @@
     <p>Enter your key to proceed:</p>
     <input type="text" class="key-input" placeholder="Enter key here">
     <button class="btn" onclick="validateKey()">Submit</button>
-    <div class="key-list">
-      <h2>Random Keys:</h2>
-      <p>8f9e-3d2b-7c6a-5e4f</p>
-      <p>1a2b-3c4d-5e6f-7g8h</p>
-      <p>9i0j-1k2l-3m4n-5o6p</p>
-      <p>7q8r-9s0t-1u2v-3w4x</p>
-      <p>5y6z-7a8b-9c0d-1e2f</p>
-      <p>3g4h-5i6j-7k8l-9m0n</p>
-      <p>1o2p-3q4r-5s6t-7u8v</p>
-      <p>9w0x-1y2z-3a4b-5c6d</p>
-      <p>7e8f-9g0h-1i2j-3k4l</p>
-      <p>5m6n-7o8p-9q0r-1s2t</p>
-    </div>
-    <p>Click the button below to view the script.</p>
-    <button class="btn" onclick="window.location.href='AimBlox.html'">View Script</button>
   </div>
 
   <script>
@@ -161,7 +100,7 @@
 
       if (keys.includes(keyInput)) {
         alert('Key is valid!');
-        // Redirect or perform some action
+        window.location.href = 'AimBlox.html';
       } else {
         alert('Invalid key. Please try again.');
       }

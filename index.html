@@ -1,96 +1,151 @@
-
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIMBLOX Script</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #2c3e50, #bdc3c7);
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      transition: background 0.3s ease;
+      cursor: default;
+    }
 
-<!--
-    rdd - https://github.com/latte-soft/rdd
+    .container {
+      text-align: center;
+      background: rgba(44, 62, 80, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      padding: 50px;
+      transition: all 0.3s ease;
+      width: 90%;
+      max-width: 400px;
+    }
 
-    Copyright (C) 2024 Latte Softworks <latte.to> | MIT License
--->
+    .container:hover {
+      transform: scale(1.05);
+    }
 
-<html lang=”en”>
-    <head>
-        <title>rdd</title>
-        <link rel="icon" href="favicon.svg">
+    h1 {
+      margin: 0 0 20px 0;
+      font-size: 2.5em;
+      color: #ecf0f1;
+      transition: color 0.3s ease;
+    }
 
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
+    p {
+      margin: 0 0 20px 0;
+      color: #bdc3c7;
+      transition: color 0.3s ease;
+    }
 
-            :root {
-                color-scheme: dark light;
-            }
+    .btn, .key-input {
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1em;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
 
-            body {
-                font-family: 'JetBrains Mono', monospace;
-            }
+    .btn:hover, .key-input:hover {
+      background-color: #1abc9c;
+      transform: scale(1.05);
+    }
 
-            form {
-                border-width: thin;
-                border-style: solid;
-                border-radius: 4px;
-                margin-left: 10px;
-                width: fit-content;
-                padding: 18px 18px 18px 18px;
-                line-height: 24px;
-            }
+    .key-input {
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 1em;
+      width: calc(100% - 20px);
+      border-radius: 5px;
+      background-color: #34495e;
+      color: white;
+    }
 
-            output {
-                white-space: pre-wrap;
-            }
+    .hidden {
+      display: none;
+    }
 
-            button {
-                font-weight: normal;
-            }
+    .status-message {
+      color: #ecf0f1;
+      margin: 10px 0;
+    }
 
-            a:link {
-                color: rgb(43, 162, 241);
-                font-weight: bolder;
-            }
+    .access-box {
+      background-color: #1abc9c;
+      padding: 20px;
+      border-radius: 15px;
+      color: white;
+      display: none;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>AIMBLOX Script V2 Release Public</h1>
+    <p>Enter your key to proceed:</p>
+    <input type="text" class="key-input" placeholder="Enter key here">
+    <button class="btn" onclick="startValidation()">Submit</button>
+    <p class="status-message hidden"></p>
+    <div class="access-box hidden">
+      <h2>Access to Script</h2>
+    </div>
+  </div>
 
-            a:visited {
-                color: rgb(43, 162, 241);
-                font-weight: bolder;
-            }
-        </style>
-    </head>
+  <script>
+    const keys = [
+      '8f9e-3d2b-7c6a-5e4f',
+      '1a2b-3c4d-5e6f-7g8h',
+      '9i0j-1k2l-3m4n-5o6p',
+      '7q8r-9s0t-1u2v-3w4x',
+      '5y6z-7a8b-9c0d-1e2f',
+      '3g4h-5i6j-7k8l-9m0n',
+      '1o2p-3q4r-5s6t-7u8v',
+      '9w0x-1y2z-3a4b-5c6d',
+      '7e8f-9g0h-1i2j-3k4l',
+      '5m6n-7o8p-9q0r-1s2t'
+    ];
 
-    <body>
-        <p>RDD - "Roblox Deployment Downloader By mex studios" &#40;<a target="_blank" href="https://github.com/latte-soft/rdd">GitHub Repository</a>, <a target="_blank" href="https://latte.to/discord">Latte Softworks Discord Server</a>&#41;<br>Copyright (c) 2024 Latte Softworks <a target="_blank" href="https://latte.to">&lt;latte.to&gt;</a> | <a target="_blank" href="https://github.com/latte-soft/rdd/blob/master/LICENSE">MIT License</a></p>
-        <noscript><br>&#40;⚠️ This site doesn't work without JavaScript Enabled!&#41;<br></noscript>
+    function startValidation() {
+      const keyInput = document.querySelector('.key-input').value;
+      const statusMessage = document.querySelector('.status-message');
+      const accessBox = document.querySelector('.access-box');
 
-        <!-- Shown by rdd.js if there's no query args -->
-        <div hidden id="downloadFormDiv">
-            <form id="downloadForm" target="_blank" action="">
-                <label for="binaryType">Binary Type:</label>
-                <select id="binaryType" name="binaryType">
-                    <option value="WindowsPlayer">WindowsPlayer</option>
-                    <option value="WindowsStudio64">WindowsStudio64</option>
-                    <option value="MacPlayer">MacPlayer</option>
-                    <option value="MacStudio">MacStudio</option>
-                </select>
-                <br>
-                <label for="channel">Channel Name:</label>
-                <input id="channel" name="channel" type="text" placeholder="LIVE">
-                <br>
-                <label for="version">Version Hash:</label>
-                <input id="version" name="version" type="text"> <b>&#40;Optional&#41;</b>
-                <br><br>
-                <label for="compressZip">Compress Output Zip:</label>
-                <input id="compressZip" name="compressZip" type="checkbox">
-                <br>
-                <label for="compressionLevel">Zip Compression Level (1-9):</label>
-                <input id="compressionLevel" name="compressionLevel" type="number" min="1" max="9" value="5">
-                <br><br>
-                <button type="button" onclick="downloadFromForm();">Download</button>
-                <button type="button" onclick="copyLinkFromForm();">Copy Permanent Link</button>
-                <br>
-            </form>
-            <br>
-        </div>
+      if (keys.includes(keyInput)) {
+        simulateProcess(statusMessage, 'Checking the key from MEX servers...', 3000)
+          .then(() => simulateProcess(statusMessage, 'Checking the script in MEX servers...', 3000))
+          .then(() => simulateProcess(statusMessage, 'Generate script access for 24 hours...', 3000))
+          .then(() => simulateProcess(statusMessage, 'Just a few steps...', 3000))
+          .then(() => {
+            statusMessage.classList.add('hidden');
+            accessBox.classList.remove('hidden');
+          });
+      } else {
+        alert('Invalid key. Please try again.');
+      }
+    }
 
-        <output id="consoleText"></output>
-        <br>
-    </body>
-
-    <script src="js/jszip.min.js"></script>
-    <script src="js/rdd.js"></script>
+    function simulateProcess(element, message, delay) {
+      return new Promise((resolve) => {
+        element.textContent = message;
+        element.classList.remove('hidden');
+        setTimeout(() => {
+          resolve();
+        }, delay);
+      });
+    }
+  </script>
+</body>
 </html>
